@@ -1,5 +1,3 @@
-package jtime
-
 /* Package jtime provides flexible JSON time.Time marshing/unmarshaling
 
 How it works?
@@ -41,3 +39,4 @@ Example:
 
 Caution: Changing marshaller in mid-flight is dangerous :)
 */
+package jtime
