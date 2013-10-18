@@ -29,3 +29,10 @@ Marshallers.
             }
             fmt.Println(t.Created) // 2013-10-18 15:35:25 -0700 PDT
     }
+
+# Contact
+
+[https://bitbucket.org/tebeka/jtime](https://bitbucket.org/tebeka/jtime)
+
+# License
+MIT (see LICENSE.txt)
