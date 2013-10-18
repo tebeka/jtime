@@ -36,7 +36,7 @@ Example:
 		if err := json.Unmarshal(data, &t); err != nil {
 			log.Fatalf("error umarshaling: %s\n", err)
 		}
-		fmt.Println(t.Created)
+		fmt.Println(t.Created) // 2013-10-18 15:35:25 -0700 PDT
 	}
 
 Caution: Changing marshaller in mid-flight is dangerous :)
