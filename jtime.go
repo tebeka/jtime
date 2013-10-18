@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+const (
+	Version = "0.1.0"
+)
+
 // Time structure, embeds time.Time
 type Time struct {
 	time.Time
