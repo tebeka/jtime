@@ -6,10 +6,12 @@ import (
 	"time"
 )
 
+// Time structure, embeds time.Time
 type Time struct {
 	time.Time
 }
 
+// Marshler interface for marshaling/umarshaling time
 type Marshaler interface {
 	Marshal(t Time) ([]byte, error)
 	Unmarshal(data []byte) (Time, error)
@@ -17,18 +19,22 @@ type Marshaler interface {
 
 var marshaler Marshaler
 
+// SetMarshaler sets the current marshaller
 func SetMarshaler(m Marshaler) {
 	marshaler = m
 }
 
+// FormatMashaler uses time.Time format strings
 type FormatMashaler struct {
 	Format string
 }
 
+// Marshal will marshal to JSON string in Format
 func (fm *FormatMashaler) Marshal(t Time) ([]byte, error) {
 	return []byte(`"` + t.Format(fm.Format) + `"`), nil
 }
 
+// Unmarshal from JSON string in Format
 func (fm *FormatMashaler) Unmarshal(data []byte) (Time, error) {
 	if len(data) < 2 {
 		return Time{}, fmt.Errorf("data too short - %v", data)
@@ -41,10 +47,12 @@ func (fm *FormatMashaler) Unmarshal(data []byte) (Time, error) {
 	return Time{t}, err
 }
 
+// UnixMarshaler uses integers as format
 type UnixMarshaler struct {
-	MSec bool
+	MSec bool // Time in millseconds
 }
 
+// Marashal to JSON integer
 func (um *UnixMarshaler) Marshal(t Time) ([]byte, error) {
 	data := fmt.Sprintf("%d", t.Unix())
 	if um.MSec {
@@ -54,6 +62,7 @@ func (um *UnixMarshaler) Marshal(t Time) ([]byte, error) {
 	return []byte(data), nil
 }
 
+// Unmarshal from JSON integer
 func (um *UnixMarshaler) Unmarshal(data []byte) (Time, error) {
 	sec, err := strconv.ParseInt(string(data), 10, 64)
 	if err != nil {
