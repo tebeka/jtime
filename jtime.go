@@ -28,18 +28,18 @@ func SetMarshaler(m Marshaler) {
 	marshaler = m
 }
 
-// FormatMashaler uses time.Time format strings
-type FormatMashaler struct {
+// FormatMarshaler uses time.Time format strings
+type FormatMarshaler struct {
 	Format string
 }
 
 // Marshal will marshal to JSON string in Format
-func (fm *FormatMashaler) Marshal(t Time) ([]byte, error) {
+func (fm *FormatMarshaler) Marshal(t Time) ([]byte, error) {
 	return []byte(`"` + t.Format(fm.Format) + `"`), nil
 }
 
 // Unmarshal from JSON string in Format
-func (fm *FormatMashaler) Unmarshal(data []byte) (Time, error) {
+func (fm *FormatMarshaler) Unmarshal(data []byte) (Time, error) {
 	if len(data) < 2 {
 		return Time{}, fmt.Errorf("data too short - %v", data)
 	}
@@ -92,7 +92,7 @@ func validJSONTime(t Time) bool {
 // MarshalJSON implements the json.Marshaler interface.
 func (t Time) MarshalJSON() ([]byte, error) {
 	if !validJSONTime(t) {
-		return nil, fmt.Errorf("vtime.Time.MarshalJson: year outside of range [0,9999]")
+		return nil, fmt.Errorf("jtime.Time.MarshalJson: year outside of range [0,9999]")
 	}
 	return marshaler.Marshal(t)
 }
@@ -105,5 +105,5 @@ func (t *Time) UnmarshalJSON(data []byte) (err error) {
 
 func init() {
 	// Default behaviour
-	SetMarshaler(&FormatMashaler{time.RFC3339Nano})
+	SetMarshaler(&FormatMarshaler{time.RFC3339Nano})
 }

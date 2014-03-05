@@ -6,7 +6,7 @@ Use jtime.Time in your struct, and before calling json.Marshal/json.Unmarashal
 set the marshaller using SetMarshaller.
 
 You can either write your own marshaller or use two of the available marshallers:
-* FormatMashaller uses time.Time format to marshal/unmarshal time as JSON strings
+* FormatMarshaller uses time.Time format to marshal/unmarshal time as JSON strings
 * UnixMarshaler marshal time.Time to JSON integers (with or without msec)
 
 jtime.Time embeds time.Time so you can use all time.Time methods with it.
