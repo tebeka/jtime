@@ -24,7 +24,7 @@ func testTime() Time {
 
 func TestFormatMarshaller(t *testing.T) {
 	tm := testTime()
-	fm := &FormatMashaler{"2006"}
+	fm := &FormatMarshaler{"2006"}
 	data, err := fm.Marshal(tm)
 	if err != nil {
 		t.Fatalf("can't marshal: %s", err)
@@ -57,7 +57,7 @@ func checkUnmarshal(data []byte, t *testing.T) {
 }
 
 func TestJSON(t *testing.T) {
-	SetMarshaler(&FormatMashaler{"2006"})
+	SetMarshaler(&FormatMarshaler{"2006"})
 
 	ts := TestStruct{testTime()}
 	data, err := json.Marshal(ts)
